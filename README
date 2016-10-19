@@ -1,0 +1,41 @@
+The standard fram log library.
+
+This library provides the following arguments.
+    --all_loggers   # Apply the handlers to all non fram loggers also.
+
+    --console       # Logs to the CLI.  If you don't specify a handler this is
+                    # default.
+
+    --debug         # Logs all messages debug and below.
+
+    --error         # Logs all messages error and below.
+
+    --info          # Logs all messages info and below.
+
+    --syslog        # Specifies to send the messages to syslog.
+
+    --syslog_host   # Specifies a syslog host url.
+
+    --syslog_port   # Specifies a syslog port.
+
+    --warning       # Logs all messages warning and below.
+
+    --file_name     # Logs all messages to file.
+
+    --syslog_facility
+                    # Setup the syslog facility.
+
+EXAMPLE:
+    import fram
+    from fram_logging import FramLogging
+
+    LOGGER = FramLogging.getLogger("example")
+
+    def main(framework):
+        LOGGER.debug("example debug")
+        LOGGER.info("example info")
+        LOGGER.warning("example warning")
+        LOGGER.error("example error")
+
+    if __name__ == "__main__":
+        fram.run(func=main)
