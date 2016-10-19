@@ -136,6 +136,7 @@ def main_decorator(func):
 
 
 def apply_handlers(framework, logger, handlers):
+    """Apply all the handlers to the logger."""
     level = get_level(framework)
     # Make sure console is a default handler if non given.
     for handler in handlers:
@@ -145,22 +146,23 @@ def apply_handlers(framework, logger, handlers):
         logger.addHandler(handler)
 
 
-# pylint:disable=too-many-public-methods
 class FramLogging(logging.getLoggerClass()):
     """Wrap the logging module to add the fram plugin features."""
+
     def __init__(self, name, logger):
+        """Build a logger."""
         # no super() for 2.6 compatbility
         logging.getLoggerClass().__init__(self, name)
         self.logger = logger
 
     def __getattr__(self, name, *args, **kwargs):
+        """Expose all other functions provided by the standard logging."""
         return getattr(self.logger, name)(*args, **kwargs)
 
     @classmethod
-    def getLogger(cls, name):  # pylint:disable=invalid-name
+    def getLogger(cls, name):
         """Override parent method and call our init."""
         return FramLogging(name, logging.getLogger(name))
-# pylint:enable=too-many-public-methods
 
 
 FRAM_PLUGIN = {
