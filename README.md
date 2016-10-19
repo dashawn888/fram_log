@@ -1,1 +1,0 @@
-# fram_log
